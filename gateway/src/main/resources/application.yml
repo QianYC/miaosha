@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      routes:
+        - id: order_api
+          uri: lb://SERVICE-ORDER
+          predicates:
+            - Path=/order/**
+#          filters:
+#            - StripPrefix=1
+
+        - id: stock_api
+          uri: lb://SERVICE-STOCK
+          predicates:
+            - Path=/stock/**
+#          filters:
+#            - StripPrefix=1
+server:
+  port: 9002
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
