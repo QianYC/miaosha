@@ -10,6 +10,17 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/db?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
 
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-add-partitions: true
+          auto-create-topics: true
+      bindings:
+        fromOrder:
+          destination: stock
+
 eureka:
   client:
     service-url:

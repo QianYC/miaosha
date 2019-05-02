@@ -22,4 +22,9 @@
 库存模块：展示库存、更新库存
 
 ## 服务间通信
-目前基于Spring cloud openfeign，是基于http协议的通信框架，正在尝试是否能够替换为MQ
+候选方案有两种
+
+- OpenFeign：基于REST接口，实际上还是http请求
+- spring cloud stream kafka：使用消息队列，将不同服务解耦
+
+倾向于第二种方案，目前在order-service中两种方案都有demo

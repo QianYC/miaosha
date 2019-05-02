@@ -10,15 +10,15 @@ spring:
           uri: lb://SERVICE-ORDER
           predicates:
             - Path=/order/**
-#          filters:
-#            - StripPrefix=1
+          filters:
+            - StripPrefix=1
 
         - id: stock_api
           uri: lb://SERVICE-STOCK
           predicates:
             - Path=/stock/**
-#          filters:
-#            - StripPrefix=1
+          filters:
+            - StripPrefix=1
 server:
   port: 9002
 

@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient("service-stock")
 public interface StockClient {
 
-    @GetMapping("/stock/hello")
+    @GetMapping("/hello")
     void greet();
 }

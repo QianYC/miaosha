@@ -10,9 +10,19 @@ spring:
     password: 31415926
     url: jdbc:mysql://localhost:3306/db?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
 
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+          auto-add-partitions: true
+          min-partition-count: 1
+
+      bindings:
+        toStock:
+          destination: stock
+
 
 eureka:
   client:
