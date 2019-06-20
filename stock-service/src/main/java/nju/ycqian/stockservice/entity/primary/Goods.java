@@ -1,4 +1,4 @@
-package nju.ycqian.stockservice.entity;
+package nju.ycqian.stockservice.entity.primary;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,15 +15,14 @@ import javax.persistence.Id;
 public class Goods {
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
 
     private String name;
-    private double price;
-    private int amount;
 
-    public Goods(String name, double price, int amount) {
+    private float price;
+
+    public Goods(String name, float price) {
         this.name = name;
         this.price = price;
-        this.amount = amount;
     }
 }
