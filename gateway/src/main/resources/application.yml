@@ -19,6 +19,8 @@ spring:
             - Path=/stock/**
           filters:
             - StripPrefix=1
+  application:
+    name: gateway
 server:
   port: 9002
 

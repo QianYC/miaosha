@@ -139,7 +139,13 @@ public class StockServiceImpl implements StockService {
         }
         kStock.setAmount(kStock.getAmount() - 1);
         kStockDao.save(kStock);
-        chanel.generateOrder().send(MessageBuilder.withPayload(uid+"_"+gid).build());
+
+        JSONObject msg = new JSONObject();
+        msg.put("userId", uid);
+        msg.put("goodId", gid);
+        msg.put("price", killGoods.getPrice());
+        chanel.generateOrder().send(MessageBuilder.withPayload(msg.toJSONString()).build());
+
         return KillRes.KILL_SUCC;
     }
 }
