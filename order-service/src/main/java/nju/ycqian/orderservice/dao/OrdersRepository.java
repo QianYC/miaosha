@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
-    List<Orders> findAllByUserId(int userId);
+    List<Orders> findAllByUserId(String userId);
 
     @Nullable
     @Query(value = "SELECT * FROM orders WHERE user_id = ?1 AND good_id = ?2 AND TIMESTAMPDIFF(second, now(), create_time) < 5", nativeQuery = true)
-    Orders findRecentOne(int userId, int goodId);
+    Orders findRecentOne(String userId, int goodId);
 }

@@ -18,12 +18,12 @@ public class Orders {
     @GeneratedValue
     private long id;
 
-    private int userId;
+    private String userId;
     private int goodId;
     private double price;
     private Timestamp createTime = new Timestamp(System.currentTimeMillis());
 
-    public Orders(int userId, int goodId, double price) {
+    public Orders(String userId, int goodId, double price) {
         this.userId = userId;
         this.goodId = goodId;
         this.price = price;

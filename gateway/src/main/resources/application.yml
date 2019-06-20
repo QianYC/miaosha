@@ -19,6 +19,14 @@ spring:
             - Path=/stock/**
           filters:
             - StripPrefix=1
+
+        - id: web_api
+          uri: lb://SERVICE-WEB
+          predicates:
+            - Path=/web/**
+          filters:
+            - StripPrefix=1
+
   application:
     name: gateway
 server:

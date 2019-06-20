@@ -27,12 +27,12 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/orders")
-    public JSONObject getOrders(@RequestParam("userId") int userId) {
+    public JSONObject getOrders(@RequestParam("userId") String userId) {
         return orderService.getAllOrders(userId);
     }
 
     @GetMapping("/getNew")
-    public long getNewOrderId(@RequestParam("userId") int userId, @RequestParam("goodId") int goodId) {
+    public long getNewOrderId(@RequestParam("userId") String userId, @RequestParam("goodId") int goodId) {
         return orderService.getRecentOrderId(userId, goodId);
     }
 
@@ -44,7 +44,7 @@ public class OrderController {
     @StreamListener(OrderReqIn.INPUT)
     public void receive(String msg) {
         JSONObject jsonObject = JSON.parseObject(msg);
-        int userId = jsonObject.getInteger("userId");
+        String userId = jsonObject.getString("userId");
         int goodId = jsonObject.getInteger("goodId");
         double price = jsonObject.getDouble("price");
         orderService.saveOrder(userId, goodId, price);
