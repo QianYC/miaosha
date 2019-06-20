@@ -6,14 +6,32 @@ spring:
     name: service-stock
 
   datasource:
-    password: 31415926
-    username: root
-    url: jdbc:mysql://localhost:3306/miaosha?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-#    数据库连接池配置
+    primary:
+      password: 31415926
+      username: root
+      jdbc-url: jdbc:mysql://localhost:3306/sdata?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+
+    secondary:
+      password: 31415926
+      username: root
+      jdbc-url: jdbc:mysql://localhost:3306/ddata?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+
+    #    数据库连接池配置
     hikari:
-      maximum-pool-size: 1000
+      maximum-pool-size: 200
       connection-timeout: 10000
       minimum-idle: 10
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        enable_lazy_load_no_trans: true
+    generate-ddl: true
 
   cloud:
     stream:
@@ -25,18 +43,26 @@ spring:
       bindings:
         fromOrder:
           destination: stock
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database: mysql
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        enable_lazy_load_no_trans: true
+        toOrder:
+          destination: order
+
+  redis:
+    lettuce:
+      pool:
+        max-active: 100
+        max-idle: 10
+    password:
+    host: localhost
+    port: 6379
+
+
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8080/eureka/
 
+#logging:
+#  level:
+#    root: debug
+#  file: c:/users/17678/desktop/log.txt
