@@ -11,7 +11,7 @@
         <span>秒杀系统</span>
     </a>
     <div class="menu">
-        <a href="/orders" class="pseudo button icon-picture">所有订单</a>
+        <a href="http://localhost:9002/web/orders" class="pseudo button icon-picture">所有订单</a>
     </div>
 </nav>
 <body>
@@ -23,7 +23,7 @@
     let userId = window.sessionStorage.getItem('userId');
     let orderId = window.sessionStorage.getItem('orderId');
     $(function(){
-        $.get('localhost:9002/order/orders/' + orderId, function (data) {
+        $.get('http://localhost:9002/order/orders/' + orderId, function (data) {
             let order = JSON.parse(data).data;
             let orderDetail = `
                 <p>订单号：${order.id}</p>

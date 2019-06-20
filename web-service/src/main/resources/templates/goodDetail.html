@@ -26,8 +26,7 @@
     let userId = window.sessionStorage.getItem('userId');
     let goodsId = window.sessionStorage.getItem('goodsId');
     $(function(){
-        //alert("第二种方法。");
-        $.get('localhost:9002/stock/goods/' + goodsId, function (data) {
+        $.get('http://localhost:9002/stock/goods/' + goodsId, function (data) {
             let goods = JSON.parse(data).data;
             let goodsDetail = `
                 <h3>${goods.name}</h3>
@@ -56,7 +55,7 @@
         }
     }
     function killGoods() {
-        $.post('localhost:9002/stock-service/goods/kill', {
+        $.post('http://localhost:9002/stock/goods/kill', {
             uid: userId,
             gid: goodsId
         }, function (data) {
@@ -69,12 +68,12 @@
         })
     }
     function askOrder() {
-        $.get('localhost:9002/order-service/getNew', function (data) {
+        $.get('http://localhost:9002/order/getNew', function (data) {
             if (data < 0) {
                 alert('订单生成失败')
             } else {
                 window.sessionStorage.setItem('orderId', data);
-                window.location.herf = '/orderDetail'
+                window.location.herf = 'http://localhost:9002/web/orderDetail'
             }
         })
     }

@@ -12,7 +12,7 @@
         <span>秒杀系统</span>
     </a>
     <div class="menu">
-        <a href="/orders" class="pseudo button icon-picture">所有订单</a>
+        <a href="http://localhost:9002/web/orders" class="pseudo button icon-picture">所有订单</a>
     </div>
 </nav>
 <div class="flex six" style="margin-top: 50px; width: 100%" id="main-container">
@@ -63,7 +63,7 @@
     });
     function gotoGoodsPage(id) {
         window.sessionStorage.setItem('goodsId', id);
-        window.location.herf = '/goodDetail'
+        window.location.herf = 'http://localhost:9002/web/goodDetail'
     }
     function uuid() {
         let s = [];
