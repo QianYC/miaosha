@@ -32,8 +32,8 @@ spring:
       bindings:
         toStock:
           destination: stock
-        fromStock:
-          destination: order
+        orderRequest:
+          destination: orderAdd
 
 
 eureka:
