@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀商品详情</title>
+<!--    <script type="text/javascript" src="http://www.zhangxinxu.com/study/js/timeCountDown.js"></script>-->
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/picnic">
+</head>
+<nav class="demo">
+    <a href="/" class="brand">
+        <span>秒杀系统</span>
+    </a>
+    <div class="menu">
+        <a href="/orders" class="pseudo button icon-picture">所有订单</a>
+    </div>
+</nav>
+<body>
+<div style="margin-top: 50px; width: 100%" id="main-container">
+    <p id="time-text"></p>
+    <button id="kill-button" onclick="killGoods()" disabled>秒杀！</button>
+</div>
+</body>
+<script type="text/javascript">
+    let secondLeft = 0;
+    let userId = window.sessionStorage.getItem('userId');
+    let goodsId = window.sessionStorage.getItem('goodsId');
+    $(function(){
+        //alert("第二种方法。");
+        $.get('localhost:9002/stock-service/goods/' + goodsId, function (data) {
+            let goods = $.parseJSON(data);
+            let goodsDetail = `
+                <h3>${goods.name}</h3>
+                <p>商品价格：${goods.price}</p>
+                <p>秒杀价格：${goods.killPrice}</p>
+                <p>商品数量：${goods.amount}</p>
+                <p>秒杀数量：${goods.killAmount}</p>`;
+            $('#main-container').prepend(goodsDetail);
+            if (goods.endTime < new Date().getTime()) {
+                $('#kill-button').text('秒杀已结束');
+            } else if (goods.startTime > new Date().getTime()) {
+                let timeLeft = goods.startTime - new Date().getTime();
+                secondLeft = Math.floor(timeLeft / 1000);
+                setTimeout("timeCount()", timeLeft - secondLeft * 1000);
+            } else {
+                $('#kill-button').removeAttr("disabled");
+            }
+        })
+    });
+    function timeCount() {
+        $('#time-text').text('距离秒杀开始还有' + secondLeft + '秒');
+        secondLeft -= 1;
+        if (secondLeft >= 0) {
+            setTimeout("timeCount()", 1000);
+            $('#kill-button').removeAttr("disabled");
+        }
+    }
+    function killGoods() {
+        $.post('localhost:9002/stock-service/goods/kill', {
+            uid: userId,
+            gid: goodsId
+        }, function (data) {
+            let result = $.parseJSON(data);
+            if (result.error_code === 0) {
+                setTimeout("askOrder()", 5000);
+            } else {
+                alert(result.msg);
+            }
+        })
+    }
+    function askOrder() {
+        $.get('localhost:9002/order-service/getNew', function (data) {
+            if (data < 0) {
+                alert('订单生成失败')
+            } else {
+                window.sessionStorage.setItem('orderId', data);
+                window.location.herf = '/orderDetail'
+            }
+        })
+    }
+</script>
+</html>

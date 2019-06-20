@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>所有订单</title>
+</head>
+<nav class="demo">
+    <a href="/" class="brand">
+        <span>秒杀系统</span>
+    </a>
+    <div class="menu">
+        <a href="/orders" class="pseudo button icon-picture">所有订单</a>
+    </div>
+</nav>
+<body>
+<div style="margin-top: 50px; width: 100%" id="main-container">
+    <table class="primary">
+        <thead>
+            <tr>
+                <th>订单号</th>
+                <th>商品ID</th>
+                <th>商品价格</th>
+                <th>下单时间</th>
+            </tr>
+        </thead>
+        <tbody id="order-table">
+        <tr>
+            <td>Francisco</td>
+            <td>Valencia, Spain</td>
+        </tr>
+        <tr>
+            <td>Eve</td>
+            <td>San Francisco, USA</td>
+        </tr>
+        <tr>
+            <td>Martin</td>
+            <td>New York, USA</td>
+        </tr>
+        <tr>
+            <td>Sarah</td>
+            <td>London, UK</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+    let userId = window.sessionStorage.getItem('userId');
+    $(function(){
+        $.get('localhost:9002/order-service/orders/', function (data) {
+            let ordersArray = $.parseJSON(data);
+            $.each(ordersArray, function (index, order) {
+                let date = new Date(${order.createTime});
+                let orderDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '  ' +
+                    date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+                let newLine = `
+            <tr>
+                <td>${order.id}</td>
+                <td>${order.goodId}</td>
+                <td>${order.price}</td>
+                <td>${orderDate}</td>
+            </tr>`;
+                $('#order-table').append(newLine)
+            })
+        })
+    });
+</script>
+</html>

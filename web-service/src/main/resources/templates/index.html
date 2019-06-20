@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀系统首页</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/picnic">
+</head>
+<body>
+<nav class="demo">
+    <a href="/" class="brand">
+        <span>秒杀系统</span>
+    </a>
+    <div class="menu">
+        <a href="/orders" class="pseudo button icon-picture">所有订单</a>
+    </div>
+</nav>
+<div class="flex six" style="margin-top: 50px; width: 100%" id="main-container">
+    <article class="card">
+        <header>
+            <h3>Forest</h3>
+        </header>
+        <footer>
+            <button>进入秒杀</button>
+        </footer>
+    </article>
+</div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        //alert("第二种方法。");
+        $.get('localhost:9002/stock-service/stocks', function (data) {
+            let goodsArray = $.parseJSON(data);
+            $.each(goodsArray, function (index, goods) {
+                let newCard = `
+                <article class="card">
+                    <header>
+                        <h3>${goods.name}</h3>
+                    </header>
+                    <div>
+                        <p>商品价格：${goods.price}</p>
+                        <p>秒杀价格：${goods.killPrice}</p>
+                        <p>商品数量：${goods.amount}</p>
+                        <p>秒杀数量：${goods.killAmount}</p>
+                    </div>
+                    <footer>
+                        <button onclick="gotoGoodsPage(${goods.id})">进入秒杀</button>
+                    </footer>
+                </article>`;
+                $('#main-container').append(newCard)
+            })
+        });
+        if (window.sessionStorage.getItem('userId') == null) {
+            window.sessionStorage.setItem('userId', uuid());
+        }
+    });
+    function gotoGoodsPage(id) {
+        window.sessionStorage.setItem('goodsId', id);
+        window.location.herf = '/goodDetail'
+    }
+    function uuid() {
+        let s = [];
+        let hexDigits = "0123456789abcdef";
+        for (let i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "-";
+
+        let uuid = s.join("");
+        console.log(uuid);
+        return uuid;
+    }
+</script>
+</html>
