@@ -33,7 +33,7 @@ spring:
         toStock:
           destination: stock
         orderRequest:
-          destination: orderAdd
+          destination: order
 
 
 eureka:
