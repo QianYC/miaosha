@@ -6,14 +6,16 @@ import nju.ycqian.orderservice.dao.OrdersRepository;
 import nju.ycqian.orderservice.entity.Orders;
 import nju.ycqian.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrdersRepository ordersRepository;
 
     @Override
-    public JSONObject getAllOrders(int userId) {
+    public JSONObject getAllOrders(String userId) {
         return (JSONObject) JSON.toJSON(ordersRepository.findAllByUserId(userId));
     }
 
@@ -23,13 +25,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public long getRecentOrderId(int userId, int goodId) {
+    public long getRecentOrderId(String userId, int goodId) {
         Orders order = ordersRepository.findRecentOne(userId, goodId);
         return order == null ? -1 : order.getId();
     }
 
     @Override
-    public void saveOrder(int userId, int goodId, double price) {
+    public void saveOrder(String userId, int goodId, double price) {
         Orders order = new Orders(userId, goodId, price);
         ordersRepository.save(order);
     }

@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 @Service
 public interface OrderService {
 
-    JSONObject getAllOrders(int userId);
+    JSONObject getAllOrders(String userId);
 
     JSONObject getOrderById(long orderId);
 
-    long getRecentOrderId(int userId, int goodId);
+    long getRecentOrderId(String userId, int goodId);
 
-    void saveOrder(int userId, int goodId, double price);
+    void saveOrder(String userId, int goodId, double price);
 
 }

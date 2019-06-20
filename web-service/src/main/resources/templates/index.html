@@ -29,10 +29,16 @@
 <script type="text/javascript">
     $(function(){
         //alert("第二种方法。");
-        $.get('localhost:9002/stock-service/stocks', function (data) {
-            let goodsArray = $.parseJSON(data);
-            $.each(goodsArray, function (index, goods) {
-                let newCard = `
+        $.ajax({
+            url: 'http://localhost:9002/stock/goodsList/all',
+            type: 'get',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                let goodsArray = data;//$.parseJSON(data);
+                console.log(goodsArray);
+                $.each(goodsArray, function (index, goods) {
+                    let newCard = `
                 <article class="card">
                     <header>
                         <h3>${goods.name}</h3>
@@ -47,12 +53,13 @@
                         <button onclick="gotoGoodsPage(${goods.id})">进入秒杀</button>
                     </footer>
                 </article>`;
-                $('#main-container').append(newCard)
-            })
+                    $('#main-container').append(newCard)
+                });
+                if (window.sessionStorage.getItem('userId') == null) {
+                    window.sessionStorage.setItem('userId', uuid());
+                }
+            }
         });
-        if (window.sessionStorage.getItem('userId') == null) {
-            window.sessionStorage.setItem('userId', uuid());
-        }
     });
     function gotoGoodsPage(id) {
         window.sessionStorage.setItem('goodsId', id);
