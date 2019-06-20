@@ -1,4 +1,4 @@
-package nju.ycqian.stockservice.entity;
+package nju.ycqian.orderservice.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,23 +7,25 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Goods {
+public class Orders {
     @Id
     @GeneratedValue
     private long id;
 
-    private String name;
+    private int userId;
+    private int goodId;
     private double price;
-    private int amount;
+    private Timestamp createTime = new Timestamp(System.currentTimeMillis());
 
-    public Goods(String name, double price, int amount) {
-        this.name = name;
+    public Orders(int userId, int goodId, double price) {
+        this.userId = userId;
+        this.goodId = goodId;
         this.price = price;
-        this.amount = amount;
     }
 }

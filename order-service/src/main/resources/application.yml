@@ -8,7 +8,17 @@ spring:
   datasource:
     username: root
     password: 31415926
-    url: jdbc:mysql://localhost:3306/db?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/miaosha?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        enable_lazy_load_no_trans: true
 
   cloud:
     stream:
@@ -22,6 +32,8 @@ spring:
       bindings:
         toStock:
           destination: stock
+        orderRequest:
+          destination: order
 
 
 eureka:
