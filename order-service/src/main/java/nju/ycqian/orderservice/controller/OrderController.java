@@ -12,8 +12,11 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.websocket.server.PathParam;
 
 @RestController
 @Slf4j
@@ -28,9 +31,14 @@ public class OrderController {
         return orderService.getAllOrders(userId);
     }
 
-    @GetMapping("/orders/new")
+    @GetMapping("/getNew")
     public long getNewOrderId(@RequestParam("userId") int userId, @RequestParam("goodId") int goodId) {
         return orderService.getRecentOrderId(userId, goodId);
+    }
+
+    @GetMapping("/orders/{id}")
+    public JSONObject getOrder(@PathVariable("id") long orderId) {
+        return orderService.getOrderById(orderId);
     }
 
     @StreamListener(OrderReqIn.INPUT)

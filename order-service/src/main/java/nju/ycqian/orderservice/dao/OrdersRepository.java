@@ -4,10 +4,12 @@ import nju.ycqian.orderservice.entity.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface OrdersRespository extends JpaRepository<Orders, Integer> {
+@Repository
+public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     List<Orders> findAllByUserId(int userId);
 

@@ -8,6 +8,8 @@ public interface OrderService {
 
     JSONObject getAllOrders(int userId);
 
+    JSONObject getOrderById(long orderId);
+
     long getRecentOrderId(int userId, int goodId);
 
     void saveOrder(int userId, int goodId, double price);
