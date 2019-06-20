@@ -24,22 +24,6 @@
             </tr>
         </thead>
         <tbody id="order-table">
-        <tr>
-            <td>Francisco</td>
-            <td>Valencia, Spain</td>
-        </tr>
-        <tr>
-            <td>Eve</td>
-            <td>San Francisco, USA</td>
-        </tr>
-        <tr>
-            <td>Martin</td>
-            <td>New York, USA</td>
-        </tr>
-        <tr>
-            <td>Sarah</td>
-            <td>London, UK</td>
-        </tr>
         </tbody>
     </table>
 </div>
@@ -47,8 +31,8 @@
 <script type="text/javascript">
     let userId = window.sessionStorage.getItem('userId');
     $(function(){
-        $.get('localhost:9002/order-service/orders/', function (data) {
-            let ordersArray = $.parseJSON(data);
+        $.get('localhost:9002/order/orders/', function (data) {
+            let ordersArray = JSON.parse(data).data;
             $.each(ordersArray, function (index, order) {
                 let date = new Date(${order.createTime});
                 let orderDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '  ' +

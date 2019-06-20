@@ -27,8 +27,8 @@
     let goodsId = window.sessionStorage.getItem('goodsId');
     $(function(){
         //alert("第二种方法。");
-        $.get('localhost:9002/stock-service/goods/' + goodsId, function (data) {
-            let goods = $.parseJSON(data);
+        $.get('localhost:9002/stock/goods/' + goodsId, function (data) {
+            let goods = JSON.parse(data).data;
             let goodsDetail = `
                 <h3>${goods.name}</h3>
                 <p>商品价格：${goods.price}</p>

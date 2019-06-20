@@ -35,7 +35,7 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                let goodsArray = data;//$.parseJSON(data);
+                let goodsArray = JSON.parse(data).data;//$.parseJSON(data);
                 console.log(goodsArray);
                 $.each(goodsArray, function (index, goods) {
                     let newCard = `
