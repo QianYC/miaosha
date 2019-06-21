@@ -15,15 +15,7 @@
         <a href="http://localhost:9002/web/orders" class="pseudo button icon-picture">所有订单</a>
     </div>
 </nav>
-<div class="flex six" style="margin-top: 50px; width: 100%" id="main-container">
-    <article class="card">
-        <header>
-            <h3>Forest</h3>
-        </header>
-        <footer>
-            <button>进入秒杀</button>
-        </footer>
-    </article>
+<div class="flex five" style="margin-top: 50px; width: 100%" id="main-container">
 </div>
 </body>
 <script type="text/javascript">
@@ -35,27 +27,42 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                let goodsArray = JSON.parse(data).data;//$.parseJSON(data);
-                console.log(goodsArray);
+                let goodsArray = data.data;//$.parseJSON(data);
                 $.each(goodsArray, function (index, goods) {
-                    let newCard = `
-                <article class="card">
+                    let newCard;
+                    if (goods.startTime === null) {
+                        newCard = `
+                <article class="card my-card">
                     <header>
                         <h3>${goods.name}</h3>
                     </header>
                     <div>
                         <p>商品价格：${goods.price}</p>
-                        <p>秒杀价格：${goods.killPrice}</p>
                         <p>商品数量：${goods.amount}</p>
-                        <p>秒杀数量：${goods.killAmount}</p>
+                    </div>
+                </article>`;
+                    } else {
+                        let startTime = dateToString(new Date(goods.startTime));
+                        let endTime =  dateToString(new Date(goods.endTime));
+                        newCard = `
+                <article class="card my-card">
+                    <header>
+                        <h3>${goods.name}</h3>
+                    </header>
+                    <div>
+                        <p>商品价格：${goods.price}</p>
+                        <p>商品数量：${goods.amount}</p>
+                        <p>秒杀开始时间：${startTime}</p>
+                        <p>秒杀结束时间：${endTime}</p>
                     </div>
                     <footer>
                         <button onclick="gotoGoodsPage(${goods.id})">进入秒杀</button>
                     </footer>
                 </article>`;
+                    }
                     $('#main-container').append(newCard)
                 });
-                if (window.sessionStorage.getItem('userId') == null) {
+                if (window.sessionStorage.getItem('userId') === null) {
                     window.sessionStorage.setItem('userId', uuid());
                 }
             }
@@ -63,7 +70,7 @@
     });
     function gotoGoodsPage(id) {
         window.sessionStorage.setItem('goodsId', id);
-        window.location.herf = 'http://localhost:9002/web/goodDetail'
+        window.location.herf = 'http://localhost:9002/web/goodsDetail'
     }
     function uuid() {
         let s = [];
@@ -79,5 +86,14 @@
         console.log(uuid);
         return uuid;
     }
+    function dateToString(date) {
+        return  date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '  ' +
+            date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    }
 </script>
+<style>
+    .my-card {
+        margin: 10px;
+    }
+</style>
 </html>

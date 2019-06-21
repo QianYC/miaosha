@@ -11,9 +11,9 @@ public class WebController {
         return "index";
     }
 
-    @GetMapping("/goodDetail")
-    public String getGoodDetailPage() {
-        return "goodDetail";
+    @GetMapping("/goodsDetail")
+    public String getGoodsDetailPage() {
+        return "goodsDetail";
     }
 
     @GetMapping("/orderDetail")

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>秒杀商品详情</title>
-<!--    <script type="text/javascript" src="http://www.zhangxinxu.com/study/js/timeCountDown.js"></script>-->
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/picnic">
 </head>
@@ -12,7 +11,7 @@
         <span>秒杀系统</span>
     </a>
     <div class="menu">
-        <a href="/orders" class="pseudo button icon-picture">所有订单</a>
+        <a href="http://localhost:9002/web//orders" class="pseudo button icon-picture">所有订单</a>
     </div>
 </nav>
 <body>
@@ -27,13 +26,11 @@
     let goodsId = window.sessionStorage.getItem('goodsId');
     $(function(){
         $.get('http://localhost:9002/stock/goods/' + goodsId, function (data) {
-            let goods = JSON.parse(data).data;
+            let goods = data.data;
             let goodsDetail = `
                 <h3>${goods.name}</h3>
                 <p>商品价格：${goods.price}</p>
-                <p>秒杀价格：${goods.killPrice}</p>
-                <p>商品数量：${goods.amount}</p>
-                <p>秒杀数量：${goods.killAmount}</p>`;
+                <p>商品数量：${goods.amount}</p>`;
             $('#main-container').prepend(goodsDetail);
             if (goods.endTime < new Date().getTime()) {
                 $('#kill-button').text('秒杀已结束');
@@ -59,7 +56,7 @@
             uid: userId,
             gid: goodsId
         }, function (data) {
-            let result = $.parseJSON(data);
+            let result = data.data;
             if (result.error_code === 0) {
                 setTimeout("askOrder()", 5000);
             } else {

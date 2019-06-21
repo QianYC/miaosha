@@ -32,9 +32,9 @@
     let userId = window.sessionStorage.getItem('userId');
     $(function(){
         $.get('http://localhost:9002/order/orders/', function (data) {
-            let ordersArray = JSON.parse(data).data;
+            let ordersArray = data.data;
             $.each(ordersArray, function (index, order) {
-                let date = new Date(${order.createTime});
+                let date = new Date(order.createTime);
                 let orderDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '  ' +
                     date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
                 let newLine = `
