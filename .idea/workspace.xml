@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a83fc5c3-06c3-41a7-ab54-9e2f092d286a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-service/src/main/resources/templates/goodDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-service/src/main/resources/templates/goodDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-service/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-service/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-service/src/main/resources/templates/orderDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-service/src/main/resources/templates/orderDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-service/src/main/resources/templates/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-service/src/main/resources/templates/orders.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/stock-service/target/" />
@@ -426,7 +422,7 @@
       <workItem from="1560992389526" duration="11632000" />
       <workItem from="1561007427617" duration="6142000" />
       <workItem from="1561030309934" duration="519000" />
-      <workItem from="1561031455713" duration="519000" />
+      <workItem from="1561031455713" duration="605000" />
     </task>
     <task id="LOCAL-00001" summary="order-service">
       <created>1561008357565</created>
@@ -463,11 +459,18 @@
       <option name="project" value="LOCAL" />
       <updated>1561031645402</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add: http://, Fix: href error">
+      <created>1561032009225</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1561032009225</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32258000" />
+    <option name="totallyTimeSpent" value="32344000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -564,7 +567,8 @@
     <MESSAGE value="web-service part" />
     <MESSAGE value="update .gitignore" />
     <MESSAGE value="乱七八糟，统统提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="乱七八糟，统统提交" />
+    <MESSAGE value="Add: http://, Fix: href error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add: http://, Fix: href error" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/registry/src/main/java/nju/ycqian/registry/RegistryApplication.java">
